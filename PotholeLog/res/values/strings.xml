@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">PotholeLogging</string>
+    <string name="start_service_string">Start Recording</string>
+    <string name="stop_service_string">Stop Recording</string>
+    <string name="accelerometer_registered_string">We are now recording!</string>
+    <string name="service_stopping_string">Accelerometer recording is stopped.</string>
+    <string name="ACC_SERVICE_LABEL">Accelerometer Service</string>
+</resources>
