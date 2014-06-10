@@ -5,18 +5,19 @@
 
     <Button
         android:id="@+id/stop_button"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
         android:text="@string/stop_service_string"
+        android:visibility="gone"
         android:textSize="24sp" >
     </Button>
 
     <Button
         android:id="@+id/start_button"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@id/stop_button"
+        android:layout_centerInParent="true"
         android:text="@string/start_service_string"
         android:textSize="24sp" >
     </Button>

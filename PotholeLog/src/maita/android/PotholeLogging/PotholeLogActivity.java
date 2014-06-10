@@ -54,6 +54,8 @@ public class PotholeLogActivity extends Activity {
 		
 		////////// start/stop recording buttons
 		final Button startButton = (Button) findViewById(R.id.start_button);
+		final Button stopButton = (Button) findViewById(R.id.stop_button);
+		
 		startButton.setOnClickListener(new OnClickListener() {
 			public void onClick(View src) {
 				
@@ -61,18 +63,22 @@ public class PotholeLogActivity extends Activity {
 				AccelerometerTask mAccelerometerTask = new AccelerometerTask();
 				mAccelerometerTask.execute(null,null,null);
 				
+				startButton.setVisibility(View.GONE);
+				stopButton.setVisibility(View.VISIBLE);
+				
 				Log.i(TAG, "calling accelerometer service");
 
 			}
 		});
 		
-
-		final Button stopButton = (Button) findViewById(R.id.stop_button);
 		stopButton.setOnClickListener(new OnClickListener() {
 			public void onClick(View src) {
 				// Stop the AccelerometerService using the Intent
 				context.stopService(accelerometerServiceStopIntent);
 				Log.i(TAG, "stopped accelerometer service");
+				
+				startButton.setVisibility(View.VISIBLE);
+				stopButton.setVisibility(View.GONE);
 			}
 		});
 
