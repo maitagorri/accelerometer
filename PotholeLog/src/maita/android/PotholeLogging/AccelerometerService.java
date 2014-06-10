@@ -9,6 +9,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.AsyncTask;
 import android.os.IBinder;
+import android.text.format.Time;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -57,13 +58,16 @@ public class AccelerometerService extends Service implements SensorEventListener
 	public int onStartCommand(Intent intent, int flags, int startid) {
 		//Log.i(TAG, "service actually got started");
 		mSensorManager.registerListener(this, mAccelerometer,
-				SensorManager.SENSOR_DELAY_GAME);
+				SensorManager.SENSOR_DELAY_FASTEST);
 		//Log.i(TAG, "registered accelerometer");
 		Toast.makeText(getApplicationContext(),R.string.accelerometer_registered_string, 
                 Toast.LENGTH_SHORT).show();
-
-
-		file = new File(getExternalFilesDir(null), "records.txt");
+		
+		Time time = new Time();
+		time.setToNow();
+		String nowTime = time.format2445();
+		String filename = "acc_" + nowTime + ".txt";
+		file = new File(getExternalFilesDir(null), filename);
 		
 		// Do automatically restart this Service if it is killed
 		return START_STICKY;

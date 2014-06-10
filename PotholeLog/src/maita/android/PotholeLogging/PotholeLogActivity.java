@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -19,19 +20,22 @@ public class PotholeLogActivity extends Activity {
 	private Sensor mAccelerometer;
 	
 	////////// An AsyncTask for accelerometer recording
-/*	private class AccelerometerTask extends AsyncTask {
-
-	    @Override
-	    protected Object doInBackground(Object... objects) {
-	        return getApplication().getApplicationContext().startService(intent);
+	private class AccelerometerTask extends AsyncTask<Void,Void,Void> {
+		final Intent accelerometerServiceIntent = new Intent(getBaseContext(),
+				AccelerometerService.class);
+		
+		@Override
+	    protected Void doInBackground(Void...voids) {
+	        getApplication().getApplicationContext().startService(accelerometerServiceIntent);
+	        return(null);
 	    }
 
 	    @Override
 	    protected void onCancelled() {
-	        getActivity().getApplicationContext().stopService(intent);
+	        getApplication().getApplicationContext().stopService(accelerometerServiceIntent);
 	        super.onCancelled();
 	    }
-	}*/
+	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -41,11 +45,10 @@ public class PotholeLogActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 		final Context context = getApplicationContext();
-		// Intent used for starting the AccelerometerService
-		final Intent accelerometerServiceIntent = new Intent(context,
-				AccelerometerService.class);
-		//accelerometerServiceIntent.putExtra("somekey", "somevalue");
 		
+		// Intent used for stopping the AccelerometerService
+		final Intent accelerometerServiceStopIntent = new Intent(context,
+				AccelerometerService.class);
 
 		Log.i(TAG, getExternalFilesDir(null).getAbsolutePath());
 		
@@ -55,7 +58,9 @@ public class PotholeLogActivity extends Activity {
 			public void onClick(View src) {
 				
 				// Start the AccelerometerService using the Intent
-				context.startService(accelerometerServiceIntent);
+				AccelerometerTask mAccelerometerTask = new AccelerometerTask();
+				mAccelerometerTask.execute(null,null,null);
+				
 				Log.i(TAG, "calling accelerometer service");
 
 			}
@@ -66,7 +71,7 @@ public class PotholeLogActivity extends Activity {
 		stopButton.setOnClickListener(new OnClickListener() {
 			public void onClick(View src) {
 				// Stop the AccelerometerService using the Intent
-				context.stopService(accelerometerServiceIntent);
+				context.stopService(accelerometerServiceStopIntent);
 				Log.i(TAG, "stopped accelerometer service");
 			}
 		});
