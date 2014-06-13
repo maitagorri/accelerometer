@@ -8,6 +8,7 @@
         android:minSdkVersion="13"
         android:targetSdkVersion="18" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:icon="@drawable/icon"
@@ -24,7 +25,9 @@
         </activity>
         
         <service android:name=".AccelerometerService"
-        	android:label="@string/ACC_SERVICE_LABEL"/>
+        	android:label="@string/ACC_SERVICE_LABEL"/>       
+        <service android:name=".LocationService"
+        	android:label="@string/LOC_SERVICE_LABEL"/>
         
     </application>
 

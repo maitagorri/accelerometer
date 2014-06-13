@@ -3,7 +3,10 @@
     <string name="app_name">PotholeLogging</string>
     <string name="start_service_string">Start Recording</string>
     <string name="stop_service_string">Stop Recording</string>
-    <string name="accelerometer_registered_string">We are now recording!</string>
-    <string name="service_stopping_string">Accelerometer recording is stopped.</string>
+    <string name="pothole_button_string">Pothole!</string>
+    <string name="services_started_string">We are now recording!</string>
+    <string name="service_stopping_string">Recording is stopped.</string>
     <string name="ACC_SERVICE_LABEL">Accelerometer Service</string>
+    <string name="LOC_SERVICE_LABEL">Location Service</string>
+    <string name="pothole_reported_string">Manually reported pothole.</string>
 </resources>

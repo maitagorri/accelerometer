@@ -7,7 +7,6 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.os.AsyncTask;
 import android.os.IBinder;
 import android.text.format.Time;
 import android.util.Log;
@@ -21,8 +20,7 @@ import java.io.IOException;
 
 public class AccelerometerService extends Service implements SensorEventListener {
 
-	@SuppressWarnings("unused")
-	private final String TAG = "AccelerometerService";
+	private final String TAG = "PotholeLogActivity:AccelerometerService";
 
 	private SensorManager mSensorManager;
 	private Sensor mAccelerometer;
@@ -58,10 +56,7 @@ public class AccelerometerService extends Service implements SensorEventListener
 	public int onStartCommand(Intent intent, int flags, int startid) {
 		//Log.i(TAG, "service actually got started");
 		mSensorManager.registerListener(this, mAccelerometer,
-				SensorManager.SENSOR_DELAY_FASTEST);
-		//Log.i(TAG, "registered accelerometer");
-		Toast.makeText(getApplicationContext(),R.string.accelerometer_registered_string, 
-                Toast.LENGTH_SHORT).show();
+				SensorManager.SENSOR_DELAY_NORMAL);
 		
 		Time time = new Time();
 		time.setToNow();
@@ -76,8 +71,6 @@ public class AccelerometerService extends Service implements SensorEventListener
 	@Override
 	public void onDestroy() {
 		mSensorManager.unregisterListener(this);
-		Toast.makeText(getApplicationContext(),R.string.service_stopping_string, 
-                Toast.LENGTH_SHORT).show();
 		super.onDestroy();
 	}
 
@@ -88,8 +81,7 @@ public class AccelerometerService extends Service implements SensorEventListener
 		return null;
 
 	}
-	
-	
+
 	/////// SensorEventListener methods
 	
 	@Override
