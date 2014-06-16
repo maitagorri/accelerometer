@@ -46,10 +46,9 @@ public class LocationService extends Service implements LocationListener {
 		// Get reference to LocationManager
 		mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 		
-		/// Wait for pothole detections
-		//LocalBroadcastManager.getInstance(this).registerReceiver(potholeReceiver, new IntentFilter("pothole_observed"));
-		
-				
+		//Wait for pothole detections
+		LocalBroadcastManager lbm = LocalBroadcastManager.getInstance(this);
+		lbm.registerReceiver(mPotholeReceiver, new IntentFilter("pothole_observed"));
 		
 		Log.i(TAG, "service instance created");
 		
@@ -70,7 +69,7 @@ public class LocationService extends Service implements LocationListener {
 		
 		String locfilename = "loc_" + nowTime + ".txt";
 		locfile = new File(getExternalFilesDir(null), locfilename);
-		String potfilename = "loc_" + nowTime + ".txt";
+		String potfilename = "pot_" + nowTime + ".txt";
 		potfile = new File(getExternalFilesDir(null), potfilename);
 		
 		/// Write a first location entry
@@ -86,6 +85,7 @@ public class LocationService extends Service implements LocationListener {
 	@Override
 	public void onDestroy() {
 		mLocationManager.removeUpdates(this);
+		mLocationManager = null;
 		//Toast.makeText(getApplicationContext(),R.string.service_stopping_string, 
           //      Toast.LENGTH_SHORT).show();
 		super.onDestroy();
@@ -124,14 +124,17 @@ public class LocationService extends Service implements LocationListener {
 	}
 	
 	//////// Pothole logging machinery
-	BroadcastReceiver potholeReceiver = new BroadcastReceiver() {
-
+	
+	public class PotholeReceiver extends BroadcastReceiver {
+	
 		   @Override
 		   public void onReceive(Context context, Intent intent) {
 		      writeLocationToFile(recentLocation, potfile);
 		   }
 
 		};
+		
+	PotholeReceiver mPotholeReceiver = new PotholeReceiver();
 	
 	////////// getting the last known location
 	private Location lastKnownLocation() {
@@ -161,6 +164,7 @@ public class LocationService extends Service implements LocationListener {
 	
 	//////////// writing location to file
 	private void writeLocationToFile(Location location, File file) {
+		
 		long timestamp = location.getTime();
 		double lat = location.getLatitude();
 		double lon = location.getLongitude();
