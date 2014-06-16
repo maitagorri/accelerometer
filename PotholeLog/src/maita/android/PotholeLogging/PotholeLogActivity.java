@@ -127,7 +127,8 @@ public class PotholeLogActivity extends Activity {
 	////////// A method for broadcasting a pothole
 	private void sendPothole() {
 		Intent intent = new Intent("pothole_observed");
-		//LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+		//LocalBroadcastManager lbm = LocalBroadcastManager.getInstance(getApplicationContext());
+		//.sendBroadcast(intent);
 	}
 	
 }
