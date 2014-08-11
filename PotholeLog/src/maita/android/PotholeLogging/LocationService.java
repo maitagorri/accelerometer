@@ -1,5 +1,9 @@
 package maita.android.PotholeLogging;
-
+///////////////////////////////////////
+// The part of the app that listens to 
+// and records GPS sensor data, with a
+// frequency ~1 per second.
+/////////////////////////////////////
 
 import android.app.Service;
 import android.content.BroadcastReceiver;

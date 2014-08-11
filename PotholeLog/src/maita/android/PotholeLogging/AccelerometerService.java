@@ -1,5 +1,12 @@
 package maita.android.PotholeLogging;
-
+///////////////////////////////////////
+//The part of the app that listens to 
+//and records accelerometer data, with
+//a frequency ~100Hz. Try adjusting the
+//SENSOR_DELAY if significantly diff.
+//frequencies are observed, or other
+//problems occur.
+/////////////////////////////////////
 
 import android.app.Service;
 import android.content.Intent;
@@ -56,7 +63,7 @@ public class AccelerometerService extends Service implements SensorEventListener
 	public int onStartCommand(Intent intent, int flags, int startid) {
 		//Log.i(TAG, "service actually got started");
 		mSensorManager.registerListener(this, mAccelerometer,
-				SensorManager.SENSOR_DELAY_NORMAL);
+				SensorManager.SENSOR_DELAY_GAME);
 		
 		Time time = new Time();
 		time.setToNow();
